@@ -9,7 +9,7 @@
                 <h3><a href="{% url 'listing' auction.id %}">{{ auction.title }}</a></h3>
                 <h5>{{ auction.category }}</h5>
                 <img src="{{ auction.imageURL }}"> 
-                <h3>${{ auction.starting_bid }}</h3>
+                <h3>${{ auction.current_bid }}</h3>
                 <p>{{ auction.description }}</p>
             </li>
         {% endfor %}

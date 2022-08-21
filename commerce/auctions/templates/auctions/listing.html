@@ -4,10 +4,13 @@
     <h2>{{listing.title}}</h2>
     <h5>{{ listing.category }}</h5>
     <img src="{{ listing.imageURL }}"> 
-    <h3>${{ current_price }}</h3>
+    <h3>${{ current_bid }}</h3>
     <p>{{ listing.description }}</p>
 
-    {% if user != "" %}
+    {% if bid_message != None %}
+        <p>{{ bid_message }}</p>
+    {% endif %}
+    {% if username != "" and username_check == False %}
         <form method="post">
             <div style="display:flex; flex-direction:column; gap: 5px; width: 75vw;">
                 {% csrf_token %}
@@ -32,6 +35,14 @@
                 </div>
             </form>
         {% endif %}
+    {% elif username_check == True %}
+        <form method="post">
+            <div style="display:flex; flex-direction:column; gap: 5px; width: 75vw;">
+                {% csrf_token %}
+                {{ close_auction_form }}
+                <input type="submit" value="Close Auction" name="close_auction_btn" style="width: 150px;">
+            </div>
+        </form>
     {% endif %}
 {% endblock %}
 

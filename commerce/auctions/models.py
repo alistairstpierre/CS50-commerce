@@ -11,34 +11,35 @@ class Auction(models.Model):
     description = models.CharField(max_length=2000)
     imageURL = models.URLField()
     category = models.CharField(max_length=50)
-    starting_bid = models.DecimalField(max_digits=9, decimal_places=2)
+    current_bid = models.DecimalField(max_digits=9, decimal_places=2)
     username = models.ForeignKey(User, on_delete=models.CASCADE)
+    winner_id = models.IntegerField(null=True)
 
     def __str__(self):
-        return f"{self.id} {self.username}: {self.title} {self.category} {self.starting_bid}"
+        return f"{self.id} {self.username}: {self.title} {self.category} {self.current_bid}"
 
 class Watchlist(models.Model):
-    auctionID = models.ForeignKey(Auction, on_delete=models.CASCADE)
+    auction_id = models.ForeignKey(Auction, on_delete=models.CASCADE)
     username = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.auctionID} {self.username}"
+        return f"{self.auction_id} {self.username}"
 
 class Bid(models.Model):
     amount = models.DecimalField(max_digits=9, decimal_places=2)
-    auctionID = models.ForeignKey(Auction, on_delete=models.CASCADE)
+    auction_id = models.ForeignKey(Auction, on_delete=models.CASCADE)
     username = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.auctionID} {self.username} {self.amount}"
+        return f"{self.auction_id} {self.username} {self.amount}"
     
 class Comment(models.Model):
     comment = models.CharField(max_length=1000)
-    auctionID = models.ForeignKey(Auction, on_delete=models.CASCADE)
+    auction_id = models.ForeignKey(Auction, on_delete=models.CASCADE)
     username = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.auctionID} {self.username} {self.comment}"
+        return f"{self.auction_id} {self.username} {self.comment}"
 
 
 class Category(models.Model):
