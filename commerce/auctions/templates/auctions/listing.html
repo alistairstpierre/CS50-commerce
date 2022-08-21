@@ -1,0 +1,37 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{listing.title}}</h2>
+    <h5>{{ listing.category }}</h5>
+    <img src="{{ listing.imageURL }}"> 
+    <h3>${{ current_price }}</h3>
+    <p>{{ listing.description }}</p>
+
+    {% if user != "" %}
+        <form method="post">
+            <div style="display:flex; flex-direction:column; gap: 5px; width: 75vw;">
+                {% csrf_token %}
+                {{ bid_form }}
+                <input type="submit" value="Place Bid" name="bid_btn" style="width: 100px;">
+            </div>
+        </form>
+        {% if watchlist == False %}
+            <form method="post">
+                <div style="display:flex; flex-direction:column; gap: 5px; width: 75vw;">
+                    {% csrf_token %}
+                    {{ watchlist_form_add }}
+                    <input type="submit" value="Add To Watchlist" name="watchlist_add_btn" style="width: 200px;">
+                </div>
+            </form>
+        {% else %}
+            <form method="post">
+                <div style="display:flex; flex-direction:column; gap: 5px; width: 75vw;">
+                    {% csrf_token %}
+                    {{ watchlist_form_remove }}
+                    <input type="submit" value="Remove From Watchlist" name="watchlist_remove_btn" style="width: 200px;">
+                </div>
+            </form>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+

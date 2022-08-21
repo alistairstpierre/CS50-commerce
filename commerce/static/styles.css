@@ -1,0 +1,14 @@
+body {
+    padding: 10px;
+}
+
+img {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
